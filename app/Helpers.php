@@ -1,11 +1,13 @@
 <?php
 
+namespace App;
+
 class Helpers
 {
-    public static function PushToPaymentsPerMonths(
+    public static function pushToPaymentsPerMonths(
         array $paymentsPerMonths,
-        DateTime $date
-    ) {
+        \DateTime $date
+    ) : array {
         $paymentsPerMonths[$date->format('M')] = [
             'salary' => self::getSalaryPaymentDate($date),
             'bonus' => self::getBonusPaymentDate($date)
@@ -14,7 +16,7 @@ class Helpers
         return $paymentsPerMonths;
     }
 
-    private static function getSalaryPaymentDate($date)
+    public static function getSalaryPaymentDate($date) : string
     {
         $copy = clone $date;
         $lastDateOfTheMonth = $copy->modify('last day of this month');
@@ -34,11 +36,11 @@ class Helpers
         return $payDate->format('Y-m-d');
     }
 
-    public static function getBonusPaymentDate($date)
+    public static function getBonusPaymentDate($date) : string
     {
         $month = $date->format('m');
         $year = $date->format('Y');
-        $middleOfTheMonth = (new DateTime())->setDate($year, $month, 15);
+        $middleOfTheMonth = (new \DateTime())->setDate($year, $month, 15);
         $bonusPayDate = $middleOfTheMonth;
 
         if(self::isWeekend($middleOfTheMonth->format('D'))) {
@@ -50,12 +52,12 @@ class Helpers
         return $bonusPayDate->format('Y-m-d');
     }
 
-    private static function isWeekend($day)
+    private static function isWeekend($day) : bool
     {
         return $day == 'Sat' || $day == 'Sun';
     }
 
-    private static function isWednesday($day)
+    private static function isWednesday($day) : bool
     {
         return $day == 'Wed';
     }
