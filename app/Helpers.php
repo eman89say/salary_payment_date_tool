@@ -4,13 +4,16 @@ namespace App;
 
 class Helpers
 {
+    const SALARY = 'salary';
+    const BONUS = 'bonus';
+
     public static function pushToPaymentsPerMonths(
         array $paymentsPerMonths,
         \DateTime $date
     ) : array {
         $paymentsPerMonths[$date->format('M')] = [
-            'salary' => self::getSalaryPaymentDate($date),
-            'bonus' => self::getBonusPaymentDate($date)
+            self::SALARY => self::getSalaryPaymentDate($date),
+            self::BONUS => self::getBonusPaymentDate($date)
         ];
 
         return $paymentsPerMonths;

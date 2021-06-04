@@ -27,6 +27,8 @@ for ($i=1; $i <= 11; $i++) {
 }
 
 // create CSV using the output file and paymentsPerMonths Array
-$fileName =  "outputCSV/{$outputFile}_{$year}.csv";
+$dirName = "outputCSV";
+is_dir($dirName) || mkdir($dirName, '0777', true);
+$fileName =  "{$dirName}/{$outputFile}_{$year}.csv";
 $csvCreator = new CSVCreator($paymentsPerMonths, $fileName);
 $csvCreator->createCSV();

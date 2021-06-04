@@ -8,6 +8,9 @@ class CSVCreator
     private $outputFile;
     private $list;
 
+    const SALARY = 'salary';
+    const BONUS = 'bonus';
+
     public function __construct(array $data, string $outputFile)
     {
         $this->data = $data;
@@ -33,7 +36,7 @@ class CSVCreator
         foreach ($this->data as $key => $value) {
             array_push($this->list, 
                 [
-                    $key, $value['salary'], $value['bonus']
+                    $key, $value[self::SALARY], $value[self::BONUS]
                 ]
             );
         }
